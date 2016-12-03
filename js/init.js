@@ -3,7 +3,7 @@ var cityListData = {
 
 };	
 function initCityListData() {
-	var dataroot = "../data/cityList.json";
+	var dataroot = "data/cityList.json";
 	$.ajaxSettings.async = false;//要设置成同步，不然gz_subwaydata不能被成功赋值
 	$.getJSON(dataroot, function(data) {
 		cityListData.citylist = data.citylist;
@@ -48,7 +48,7 @@ function init_SubwayData(city_adcode,city_spell) {
 			line : []
 	//地铁线路
 	};
-	var dataroot = "../data/"+city_adcode+"_drw_"+city_spell+".json";
+	var dataroot = "data/"+city_adcode+"_drw_"+city_spell+".json";
 	console.log(dataroot);
 	$.ajaxSettings.async = false;//要设置成同步，不然gz_subwaydata不能被成功赋值
 	$.getJSON(dataroot, function(data) {
