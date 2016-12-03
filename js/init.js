@@ -48,7 +48,8 @@ function init_SubwayData(city_adcode,city_spell) {
 			line : []
 	//地铁线路
 	};
-	var dataroot = "../data/"+city_adcode+"_drw_"+city_spell+".json";
+	var url = window.location.href;
+	var dataroot = url+"metroMap/data/"+city_adcode+"_drw_"+city_spell+".json";
 	console.log(dataroot);
 	$.ajaxSettings.async = false;//要设置成同步，不然gz_subwaydata不能被成功赋值
 	$.getJSON(dataroot, function(data) {
