@@ -4,6 +4,7 @@ var cityListData = {
 };	
 function initCityListData() {
 	var dataroot = "/metroMap/data/cityList.json";
+	console.log("初始化城市列表时获取json路径");
 	$.ajaxSettings.async = false;//要设置成同步，不然gz_subwaydata不能被成功赋值
 	$.getJSON(dataroot, function(data) {
 		cityListData.citylist = data.citylist;
@@ -49,8 +50,8 @@ function init_SubwayData(city_adcode,city_spell) {
 	//地铁线路
 	};
 	var url = window.location.href;
-	var dataroot = url+"metroMap/data/"+city_adcode+"_drw_"+city_spell+".json";
-	console.log(dataroot);
+	var dataroot = url+"/metroMap/data/"+city_adcode+"_drw_"+city_spell+".json";
+	console.log("初始化地铁图时获取json路径："+dataroot);
 	$.ajaxSettings.async = false;//要设置成同步，不然gz_subwaydata不能被成功赋值
 	$.getJSON(dataroot, function(data) {
 		console.log("从json读取的data.i:"+data.i);
