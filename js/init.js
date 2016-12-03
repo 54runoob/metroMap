@@ -49,7 +49,7 @@ function init_SubwayData(city_adcode,city_spell) {
 			line : []
 	//地铁线路
 	};
-	var url = window.location.href;
+	var url = window.location.hostname;
 	var dataroot = url+"data/"+city_adcode+"_drw_"+city_spell+".json";
 	console.log("初始化地铁图时获取json路径："+dataroot);
 	$.ajaxSettings.async = false;//要设置成同步，不然gz_subwaydata不能被成功赋值
