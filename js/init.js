@@ -4,7 +4,7 @@ var cityListData = {
 };	
 function initCityListData() {
 	var dataroot = "/metroMap/data/cityList.json";
-	console.log("初始化城市列表时获取json路径");
+	console.log("初始化城市列表时获取json路径"+dataroot);
 	$.ajaxSettings.async = false;//要设置成同步，不然gz_subwaydata不能被成功赋值
 	$.getJSON(dataroot, function(data) {
 		cityListData.citylist = data.citylist;
