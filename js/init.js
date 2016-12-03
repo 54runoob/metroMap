@@ -49,9 +49,9 @@ function init_SubwayData(city_adcode,city_spell) {
 			line : []
 	//地铁线路
 	};
-	var url = "https://54runoob.github.io/metroMap";
-	console.log("当前路径"+url);
-	var dataroot = url+"/data/"+city_adcode+"_drw_"+city_spell+".json";
+	var url1 = "https://54runoob.github.io/metroMap";
+	console.log("当前路径"+url1);
+	var dataroot = url1+"/data/"+city_adcode+"_drw_"+city_spell+".json";
 	console.log("初始化地铁图时获取json路径："+dataroot);
 	$.ajaxSettings.async = false;//要设置成同步，不然gz_subwaydata不能被成功赋值
 	$.getJSON(dataroot, function(data) {
