@@ -1,9 +1,487 @@
-<!DOCTYPE html>
+
+<!DOCTYPE HTML>
 <html>
-<meta charset="utf-8" />
 <head>
+<meta charset="UTF-8">
+<link rel="icon" href="favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon" />
+<!--重要meta, 必须!-->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,shrink-to-fit=no" />
+<title>地铁图查询路线详情</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/frozen.css">
+<script type="text/javascript" src="../js/zepto.js"></script>
+<style type="text/css">
+body{
+margin:0;
+padding:0;
+}
+#citypage {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+    background: #fff;
+}
+.msubway .top_bar {
+    display: block;
+}
+.top_bar {
+    /*display: none;*/
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 45px;
+    z-index: 999999;
+    background: #f8f8f8;
+    border-bottom: 1px #9a9997 solid;
+    text-align: center;
+}
+.top_bar .back_btn {
+    position: absolute;
+    height: 45px;
+    width: 45px;
+    background: url(../images/back_btn.png) center center no-repeat;
+    background-size: 10px 18px;
+}
+.top_bar .city_name, .top_bar .city_title {
+    display: inline-block;
+    font-size: 20px;
+    text-align: center;
+    line-height: 45px;
+}
+.citylist_wrap {
+    margin-top: 46px;
+    background: #fff;
+    padding-bottom: 10px;
+}
+.top_bar .city_list_btn {
+    display: inline-block;
+    position: absolute;
+    right: 12px;
+    bottom: 9px;
+    width: 50px;
+    text-align: center;
+    text-decoration: none;
+    color: #0091ff;
+    font-size: 16px;
+    line-height: 26px;
+    min-height: 26px;
+    min-width: 30px;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+
+
+ul.citylist {
+    padding-left: 12px;
+    background: #fff;
+}
+ol, ul {
+    list-style: none;
+}
+ul.citylist li {
+    height: 44px;
+    line-height: 44px;
+    font-size: 16px;
+    border-bottom: 1px #ddd solid;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+ul.citylist li a {
+    display: block;
+    text-decoration: none;
+    color: #000;
+}
+
+.msubway .filter_btn {
+    display: block;
+}
+.filter_btn {
+    /*display: none;*/
+    position: fixed;
+    width: 36px;
+    height: 14px;
+    line-height: 14px;
+    top: 56px;
+    right: 10px;
+    box-shadow: 0 0 6px 1px rgba(0,0,0,.3);
+    border-radius: 2px;
+    z-index: 20;
+    background: #fff url(../images/filter.png) no-repeat;
+    background-size: 18px 18px;
+    background-position: 9px 4px;
+    font-size: 9px;
+    text-align: center;
+    padding-top: 22px;
+    color: #6a6968;
+}
+.light_box {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,.3);
+    z-index: 19;
+}
+.filter_content {
+    display: none;
+    position: fixed;
+    top: 92px;
+    right: 10px;
+    z-index: 21;
+    background: #fff;
+    box-shadow: 0 0 6px 1px rgba(0,0,0,.3);
+    border-radius: 2px;
+}
+.flier_close_btn {
+    position: absolute;
+    top: -36px;
+    right: 0;
+    width: 36px;
+    height: 36px;
+    background: #fff url(../images/close_btn.png) no-repeat;
+    background-size: 16px 16px;
+    background-position: 10px 10px;
+    border-radius: 2px;
+    z-index: 22;
+}
+.fliter_detail {
+    max-height: 286px;
+    padding: 0 11px;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+ol, ul {
+    list-style: none;
+}
+.fliter_item {
+    font-size: 12px;
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px #eaeaea solid;
+    overflow: hidden;
+    zoom: 1;
+}
+.line_color {
+    display: block;
+    height: 8px;
+    width: 30px;
+    float: left;
+    margin-top: 16px;
+    margin-right: 10px;
+}
+.line_name {
+    display: block;
+    float: left;
+}
+
+
+/*城市列表样式开始*/
+ul.citylist {
+    padding-left: 12px;
+    background: #fff;
+}
+ol, ul {
+    list-style: none;
+}
+ul.citylist li {
+    height: 44px;
+    line-height: 44px;
+    font-size: 16px;
+    border-bottom: 1px #ddd solid;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+ul.citylist li a {
+    display: block;
+    text-decoration: none;
+    color: #000;
+}/*城市列表样式结束*/
+.amap-subway-api .route_close_btn{
+	top:96px !important;
+}
+/*某个城市的线路列表开始*/
+.fliter_detail {
+    max-height: 286px;
+    padding: 0 11px;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+ol, ul {
+    list-style: none;
+}
+.fliter_item {
+    font-size: 12px;
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px #eaeaea solid;
+    overflow: hidden;
+    zoom: 1;
+}
+.line_color {
+    display: block;
+    height: 8px;
+    width: 30px;
+    float: left;
+    margin-top: 16px;
+    margin-right: 10px;
+}
+.line_name {
+    display: block;
+    float: left;
+}/*某个城市的线路列表结束*/
+/*load开始*/
+.loading-bg {
+	display :none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #FFF;
+    opacity: .8;
+    filter: alpha(opacity=80);
+    z-index: 100;
+}
+.loading-bg .loading-outer {
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+.loading-bg .loading {
+    width: 110px;
+    position: absolute;
+    left: -55px;
+    top: -30px;
+    margin: 0 auto;
+    font-size: 12px;
+    font-weight: 700;
+}
+.loading-bg .loading .loading-img {
+    display: block;
+    width: 32px;
+    height: 32px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}/*load结束*/
+/*起始站终点站input开始*/
+.route_entry {
+    margin-top: 7px;
+    display: -moz-box;
+    display: -webkit-box;
+    display: box;
+    padding: 0 72px 0 45px;
+}
+.route_ipt {
+    -moz-box-flex: 1;
+    -webkit-box-flex: 1;
+    box-flex: 1;
+    font-size: 14px;
+    width: 1%;
+    height: 30px;
+    line-height: 30px;
+    border: 0;
+    border: 1px #bbb solid;
+    background: #fff;
+    -webkit-appearance: none;
+    border-radius: 2px;
+    display: block;
+    text-align: left;
+    text-indent: 4px;
+    padding-right: 19px;
+    position: relative;
+}
+.route_startend {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #333;
+}
+.route_startend.route_placeholder {
+    color: #c8c8c8;
+}
+.route_close {
+    width: 15px;
+    height: 100%;
+    background: url(../images/ipt_clear_btn.png) center center no-repeat;
+    background-size: 15px 15px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 19;
+    margin-right: 5px;
+}
+.route_switch {
+    display: block;
+    width: 25px;
+    height: 32px;
+    background: url(../images/switch_blac.png) center center no-repeat;
+    background-size: 25px 16px;
+    margin: 0 5px;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+</style>
 </head>
 <body>
-<p>测试一下</p>
+	<!-- 头部 -->
+	<div class="top_bar" id="header">
+		<div class="back_btn" id="back_amap"></div>
+
+		<div class="route_entry">
+			<div class="route_ipt" id="setStart" srhtype="start">
+				<div class="route_startend route_start route_placeholder">起点站</div>
+				<!-- <div class="route_close route_close_start"></div> -->
+			</div>
+			<a id="setSwitch" class="route_switch" href="javascript:void(0)"></a>
+			<div class="route_ipt" id="setEnd" srhtype="end">
+				<div class="route_startend route_end route_placeholder">终点站</div>
+				<!-- <div class="route_close route_close_end"></div> -->
+			</div>
+		</div>
+
+		<a class="city_list_btn city_name" href="javascript:void(0)">广州</a>
+	</div>
+	<div class="light_box"></div>
+	<div class="filter_btn">线路</div>
+	<div class="filter_content">
+		<div class="flier_close_btn"></div>
+		<ul class="fliter_detail">
+		</ul>
+	</div>
+	<!-- 地铁页面开始 -->
+	<div id="mysubway">
+	</div>
+	<!-- 地铁页面结束 -->
+    <!-- 城市切换页面开始 -->
+	<div id="citypage" class="msubway">
+		<div class="top_bar">
+			<div class="back_btn" id="back_subway"></div>
+			<span class="city_title">切换城市</span>
+		</div>
+		<div class="citylist_wrap">
+			<ul class="citylist" id="citylist"></ul>
+		</div>
+	</div>
+	<!-- 城市切换页面结束 -->
+	
+	<!-- load开始 -->
+	<div class="loading-bg" id="loading">
+			<div class="loading-outer" style="position: fixed;">
+				<div class="loading" style="top: -30px;">
+					<img class="loading-img" src="../images/loading.gif">
+					<div class="loading-txt">正在加载，请稍候...</div>
+				</div>
+			</div>
+		</div>
+	<!-- load结束 -->
+	
+	<form action="${pageContext.request.contextPath}/ticket/buy.do" method="post">
+	<div class="ui-footer ui-footer-stable ui-btn-group ui-border-t">
+		<input type="hidden" name="startPoint" id="startPoint" value=""/>
+		<input type="hidden" name="endPoint" id="endPoint" value=""/>
+		<input type="submit" class="ui-btn-lg ui-btn-primary" value="立即购票"/>		
+	</div>
+	</form>
+	
+	<script src="http://webapi.amap.com/subway?v=1.0&key=62d06b5f18b43efce732baf420aed16f&callback=cbk"></script>
+	<!-- <script type="text/javascript">
+	function getElementsByClassName(ClassName){
+	 	var elements = document.getElementsByClassName(ClassName);
+	 	return elements;
+	};
+		//var xianlu_btn = document.getElementsByClassName("filter_btn");
+		//var l_b = document.getElementsByClassName("light_box");
+		//var f_c = document.getElementsByClassName("filter_content");
+		//xianlu_btn[0].onclick = function() {
+		getElementsByClassName("filter_btn")[0].onclick = function(){
+			//l_b[0].style.display = "block";
+			getElementsByClassName("light_box")[0].style.display = "block";		
+			//f_c[0].style.display = "block";
+			getElementsByClassName("filter_content")[0].style.display = "block";
+		};
+		getElementsByClassName("flier_close_btn")[0].onclick = function(){
+			getElementsByClassName("light_box")[0].style.display = "none";		
+			getElementsByClassName("filter_content")[0].style.display = "none";
+		}
+		//var xianlu_close_btn = document.getElementsByClassName("flier_close_btn");
+		//xianlu_close_btn[0].onclick = function() {
+			
+			//l_b[0].style.display = "none";
+			//f_c[0].style.display = "none";
+		//};
+	</script> -->
 </body>
+
+<script type="text/javascript" src="../js/init.js"></script>
+
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/js/frozen.js"></script>
+<script type="text/javascript">
+
+$('.ui-list li,.ui-tiled li,.ui-footer button').click(function() {
+			if ($(this).data('href')) {
+				location.href = $(this).data('href');
+			}
+		});
+	var city_name = $(".city_name");
+	//城市列表切换
+	city_name[0].addEventListener("click", function() {
+		initCityListData();
+		$("#header").css("display","none");
+		$("#citypage").css("display","block");
+		$(".fliter_item").remove();//城市切换时，要把之前城市的地铁线路列表移除
+	}, false);
+	var back_btn = $(".back_btn");
+	//返回地铁图
+	back_btn[1].addEventListener("click", function() {
+			$("#header").css("display","block");
+			$("#citypage").css("display","none");
+	}, false);
+	var filter_btn = $(".filter_btn");
+	filter_btn[0].addEventListener("click",function(){
+		$(".light_box").css("display","block");
+		$(".filter_content").css("display","block");
+	},false);
+	var flier_close_btn = $(".flier_close_btn");
+	flier_close_btn[0].addEventListener("click",function(){
+		$(".light_box").css("display","none");
+		$(".filter_content").css("display","none");
+	},false);
+	
+	
+	var back_amap = $("#back_amap");//Jquery获取id对象，尽管是唯一的，但还是一个数组对象
+	//var back_amap = document.getElementById("back_amap");
+	back_amap[0].addEventListener("click",function(){
+		window.location.href="${pageContext.request.contextPath}/route/route.jsp";
+	},false);
+</script>
 </html>
