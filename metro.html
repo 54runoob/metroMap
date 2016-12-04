@@ -404,43 +404,8 @@ ol, ul {
 		</div>
 	<!-- load结束 -->
 	
-	<!--<form action="#.do" method="post">
-	<div class="ui-footer ui-footer-stable ui-btn-group ui-border-t">
-		<input type="hidden" name="startPoint" id="startPoint" value=""/>
-		<input type="hidden" name="endPoint" id="endPoint" value=""/>
-		<input type="submit" class="ui-btn-lg ui-btn-primary" value="立即购票"/>		
-	</div>
-	</form>-->
+<script src="https://webapi.amap.com/subway?v=1.0&key=62d06b5f18b43efce732baf420aed16f&callback=cbk"></script>
 	
-	<script src="https://webapi.amap.com/subway?v=1.0&key=62d06b5f18b43efce732baf420aed16f&callback=cbk"></script>
-	<!-- <script type="text/javascript">
-	function getElementsByClassName(ClassName){
-	 	var elements = document.getElementsByClassName(ClassName);
-	 	return elements;
-	};
-		//var xianlu_btn = document.getElementsByClassName("filter_btn");
-		//var l_b = document.getElementsByClassName("light_box");
-		//var f_c = document.getElementsByClassName("filter_content");
-		//xianlu_btn[0].onclick = function() {
-		getElementsByClassName("filter_btn")[0].onclick = function(){
-			//l_b[0].style.display = "block";
-			getElementsByClassName("light_box")[0].style.display = "block";		
-			//f_c[0].style.display = "block";
-			getElementsByClassName("filter_content")[0].style.display = "block";
-		};
-		getElementsByClassName("flier_close_btn")[0].onclick = function(){
-			getElementsByClassName("light_box")[0].style.display = "none";		
-			getElementsByClassName("filter_content")[0].style.display = "none";
-		}
-		//var xianlu_close_btn = document.getElementsByClassName("flier_close_btn");
-		//xianlu_close_btn[0].onclick = function() {
-			
-			//l_b[0].style.display = "none";
-			//f_c[0].style.display = "none";
-		//};
-	</script> -->
-</body>
-
 <script type="text/javascript" src="js/init.js?time=New Date()"></script>
 
 <script type="text/javascript"
@@ -478,10 +443,11 @@ $('.ui-list li,.ui-tiled li,.ui-footer button').click(function() {
 	},false);
 	
 	
-	var back_amap = $("#back_amap");//Jquery获取id对象，尽管是唯一的，但还是一个数组对象
+	var back_amap = $("#back_amap");//Jquery、zepto获取id对象，尽管是唯一的，但还是一个数组对象
 	//var back_amap = document.getElementById("back_amap");
 	back_amap[0].addEventListener("click",function(){
 		window.location.href="：https://54runoob.github.io/metroMap/";
 	},false);
 </script>
+</body>
 </html>
