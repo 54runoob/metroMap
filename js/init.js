@@ -161,7 +161,7 @@ window.cbk = function() {
 		
 		var ajax = $.ajax({
 			type: 'GET',// 这是请求的方式 可以是GET方式也可以是POST方式, 默认是GET
-			url: 'http://webapi.amap.com/subway/service/navigation/busExt',// 这是请求的连接地址 一般情况下这个地址是后台给前端的一个连接，直接写就可以
+			url: 'https://webapi.amap.com/subway/service/navigation/busExt',// 这是请求的连接地址 一般情况下这个地址是后台给前端的一个连接，直接写就可以
 			dataType: 'json',// 这是后台返回的数据类型 一般情况下都是一个json数据， 前端遍历一下就OK
 			async: true, // 默认为true，默认为true时，所有请求均为异步请求，如果需要发送同步请求，需设置为false,
 			timeout: 8000, // 设置请求超时时间（毫秒）。此设置将覆盖全局设置
