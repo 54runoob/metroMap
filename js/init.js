@@ -109,7 +109,7 @@ function init_SubwayData(city_adcode,city_spell) {
 		console.log($(".fliter_item"));
 		var fliter_item = $(".fliter_item");
 		for(var i=0;i<fliter_item.length;i++){//循环绑定“显示地铁线路”的事件
-			fliter_item[i].addEventListener("touchstart",function(){
+			fliter_item[i].addEventListener("touchend",function(){
 				mysubway.showLine(this.innerText);
 				var $select_obj = document.getElementById('g-select');
 				$(".light_box").css("display","none");
