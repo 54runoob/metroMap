@@ -442,7 +442,10 @@ $('.ui-list li,.ui-tiled li,.ui-footer button').click(function() {
 		$(".filter_content").css("display","none");
 	},false);
 	
-	
+	var fliter_detail = $(".fliter_detail");
+	fliter_detail[0].addEventListener("touchmove",function(event){
+		event.stopPropagation();
+	});
 	var back_amap = $("#back_amap");//Jquery、zepto获取id对象，尽管是唯一的，但还是一个数组对象
 	//var back_amap = document.getElementById("back_amap");
 	back_amap[0].addEventListener("click",function(){
