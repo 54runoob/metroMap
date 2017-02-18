@@ -444,8 +444,8 @@ $('.ui-list li,.ui-tiled li,.ui-footer button').click(function() {
 	
 	var fliter_detail = $(".fliter_detail");
 	fliter_detail[0].addEventListener("touchmove",function(event){
-		event.stopPropagation();
-	});
+		event.stopPropagation();//防止路线列表滚动时事件冒泡导致还没选择某一线路弹出层消失	
+        });
 	var back_amap = $("#back_amap");//Jquery、zepto获取id对象，尽管是唯一的，但还是一个数组对象
 	//var back_amap = document.getElementById("back_amap");
 	back_amap[0].addEventListener("click",function(){
